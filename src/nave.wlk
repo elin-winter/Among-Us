@@ -49,16 +49,13 @@ object nave {
 
   method generarReunion() {
     const votos = jugadoresActivos.filter({x => x.puedeVotar()}).map({x => x.votar()})
+    const jugadortMasVotado = votos.max({x => votos.occurrencesOf(x)})
 
-    // aca la continuacion
-
-    const jugadorVotado = blanco // cambiar cuando sepa como hacerlo
-
-    jugadoresActivos.remove(jugadorVotado)
-
-    self.actualizarCants(jugadorVotado)
-    self.chequearGanador()
-  
+    if(jugadortMasVotado != blanco) {
+      jugadoresActivos.remove(jugadortMasVotado)
+      self.actualizarCants(jugadortMasVotado)
+      self.chequearGanador()
+    }  
   }
 
   method ganaTripu(valor) {
